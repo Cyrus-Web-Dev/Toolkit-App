@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>AI Chat / Tanya — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+<link rel="stylesheet" href="css/ai.css">
+<link rel="stylesheet" href="css/chat.css">
+</head>
+<body class="mode-online">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">AI Chat / Tanya</span>
+    </div>
+    <span class="tier-tag tier-online">online · pakai Gemini</span>
+  </header>
+
+  <main class="tool-shell chat-shell">
+
+    <div class="notice-box notice-warn" id="offlineBanner" style="display:none">
+      <strong>Tidak ada koneksi internet.</strong> Fitur ini butuh internet untuk menghubungi Gemini API.
+    </div>
+
+    <section class="tool-panel chat-panel">
+      <div class="chat-messages" id="chatMessages" aria-live="polite">
+        <div class="chat-empty" id="chatEmpty">
+          <p>Tanya apa saja — informasi, penjelasan, ide, atau bantuan menulis.</p>
+          <p class="chat-hint">Riwayat percakapan disimpan di sesi browser ini saja (belum ke server).</p>
+        </div>
+      </div>
+
+      <form class="chat-input-bar" id="chatForm">
+        <textarea
+          class="text-input chat-textarea"
+          id="chatInput"
+          rows="1"
+          placeholder="Ketik pertanyaanmu di sini… (Enter kirim, Shift+Enter baris baru)"
+          required
+        ></textarea>
+        <div class="chat-actions">
+          <button type="button" class="btn-ghost" id="chatClearBtn" title="Hapus riwayat percakapan">Hapus chat</button>
+          <button type="submit" class="btn-primary" id="chatSendBtn">Kirim</button>
+        </div>
+      </form>
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/online-guard.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+</body>
+</html>

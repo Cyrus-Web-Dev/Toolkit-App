@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Hapus Background Massal — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+<link rel="stylesheet" href="css/bgremove.css">
+</head>
+<body class="mode-offline">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Hapus Background Massal</span>
+    </div>
+    <span class="tier-tag tier-offline">offline · model AI lokal</span>
+  </header>
+
+  <main class="tool-shell">
+
+    <div class="notice-box">
+      <strong>Catatan:</strong> pemakaian pertama kali butuh internet sebentar untuk mengunduh model AI
+      (~85–180MB, sekali saja). Setelah itu tersimpan di cache dan fitur ini jalan sepenuhnya offline.
+    </div>
+
+    <section class="tool-panel">
+      <h2>Hapus Background — Banyak Foto Sekaligus</h2>
+      <p class="tool-hint">
+        Pilih atau seret banyak foto sekaligus — semua diproses otomatis, tidak perlu satu-satu.
+        Format didukung: JPG, PNG, WEBP.
+      </p>
+
+      <div class="dropzone" id="bgDropzone">
+        <p>Seret foto ke sini, atau klik untuk pilih (bisa banyak sekaligus)</p>
+        <input type="file" id="bgFiles" accept="image/jpeg,image/png,image/webp" multiple hidden>
+      </div>
+
+      <div class="field-row" style="margin:14px 0 6px; max-width:520px">
+        <label>Hasil background
+          <select class="select-input" id="bgMode">
+            <option value="transparent">Transparan (PNG)</option>
+            <option value="color">Ganti dengan warna solid</option>
+          </select>
+        </label>
+        <label id="bgColorLabel" style="display:none">Warna
+          <input type="color" id="bgColor" value="#ffffff" style="height:42px;padding:4px;cursor:pointer">
+        </label>
+      </div>
+
+      <div class="bg-actions">
+        <button class="btn-primary" id="bgProcessBtn" disabled>Proses Semua Foto</button>
+        <button class="btn-ghost" id="bgDownloadAllBtn" disabled>Unduh Semua (.zip)</button>
+        <span class="bg-summary" id="bgSummary"></span>
+      </div>
+
+      <div class="bg-grid" id="bgGrid"></div>
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/download-progress.js"></script>
+<script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/zip-lite.js"></script>
+  <script src="js/bgremove.js"></script>
+</body>
+</html>

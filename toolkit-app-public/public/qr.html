@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>QR Code — Toolkit App</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/tools.css">
+</head>
+<body class="mode-offline">
+<header class="top-rail">
+  <div class="brand"><a href="app.html" class="back-link">←</a><span class="brand-mark"></span><span class="brand-name">Generator & Pemindai QR</span></div>
+  <span class="tier-tag tier-offline">📴 offline</span>
+</header>
+<main class="tool-shell">
+  <section class="tool-panel">
+    <h2>Buat QR</h2>
+    <label>Teks / URL<textarea class="text-input textarea-input" id="qrText" rows="3" placeholder="https://contoh.com atau teks apa saja"></textarea></label>
+    <button class="btn-primary" id="qrGen" style="margin-top:10px">Buat QR</button>
+    <div id="qrPreview" style="margin-top:16px;text-align:center"></div>
+    <a id="qrDl" class="btn-ghost" style="display:none;margin-top:10px" download="qrcode.png">Unduh PNG</a>
+  </section>
+  <section class="tool-panel" style="margin-top:18px">
+    <h2>Pindai QR (kamera)</h2>
+    <p class="tool-hint">Butuh izin kamera di browser/Electron.</p>
+    <div id="qrReader" style="max-width:360px"></div>
+    <p id="qrScanResult" class="status-line"></p>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+<script src="js/qr.js"></script>
+</body></html>

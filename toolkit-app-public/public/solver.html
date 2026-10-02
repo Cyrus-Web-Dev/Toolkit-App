@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Penyelesai Soal — Toolkit App</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/tools.css"><link rel="stylesheet" href="css/ai.css">
+</head>
+<body class="mode-online">
+<header class="top-rail">
+  <div class="brand"><a href="app.html" class="back-link">←</a><span class="brand-mark"></span><span class="brand-name">Penyelesai Soal</span></div>
+  <span class="tier-tag tier-online">🌐 online · Gemini</span>
+</header>
+<main class="tool-shell">
+  <div class="notice-box notice-warn" id="offlineBanner" style="display:none"><strong>Offline.</strong></div>
+  <section class="tool-panel">
+    <form id="form" class="ai-form" style="max-width:100%">
+      <label>Soal (teks)<textarea class="text-input textarea-input" id="q" rows="5" placeholder="Tulis soal matematika, fisika, kimia, akuntansi…"></textarea></label>
+      <label>Atau foto soal<input type="file" id="img" accept="image/*"></label>
+      <button class="btn-primary" id="btn" type="submit">Selesaikan</button>
+    </form>
+    <pre id="ans" class="text-input" style="white-space:pre-wrap;min-height:180px;margin-top:14px;padding:14px"></pre>
+  </section>
+</main>
+<script src="js/online-guard.js"></script>
+<script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+<script>
+const btn=document.getElementById('btn');
+initOnlineGuard('offlineBanner',[btn]);
+document.getElementById('form').onsubmit=async(e)=>{
+  e.preventDefault(); btn.disabled=true; btn.textContent='Mengerjakan…';
+  try{
+    const fd=new FormData();
+    fd.append('question', document.getElementById('q').value.trim());
+    const f=document.getElementById('img').files[0]; if(f) fd.append('image', f);
+    const res=await fetch('/api/ai/solver/solve',{method:'POST',body:fd});
+    const data=await res.json();
+    if(!res.ok||!data.ok) throw new Error(data.message||'Gagal');
+    document.getElementById('ans').textContent=data.answer;
+    toast.success('Selesai','Jawaban ditampilkan di bawah.');
+  }catch(err){toast.error('Gagal',err.message);}
+  finally{btn.disabled=false;btn.textContent='Selesaikan';}
+};
+</script>
+</body></html>

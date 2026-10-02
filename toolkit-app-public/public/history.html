@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Riwayat Operasi — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+<style>
+  .history-meta {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin: 0 0 18px;
+    line-height: 1.5;
+  }
+  .history-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .history-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  .history-item-main { flex: 1; min-width: 0; }
+  .history-item-label {
+    font-size: 0.92rem;
+    margin: 0 0 4px;
+    word-break: break-word;
+  }
+  .history-item-sub {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+  .history-item-time {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+  .history-empty {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 40px 16px;
+    font-size: 0.92rem;
+  }
+  .btn-danger-ghost {
+    background: transparent;
+    border: 1px solid rgba(217, 97, 79, 0.45);
+    color: var(--danger);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 7px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-danger-ghost:hover {
+    background: rgba(217, 97, 79, 0.12);
+  }
+  .module-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--teal-dim);
+    color: var(--teal);
+    margin-right: 6px;
+  }
+</style>
+</head>
+<body>
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Riwayat Operasi</span>
+    </div>
+    <span class="tier-tag tier-offline">lokal · auto-hapus 30 mnt</span>
+  </header>
+
+  <main class="tool-shell">
+    <section class="tool-panel">
+      <h2 style="margin-top:0">Riwayat</h2>
+      <p class="history-meta">
+        Setiap operasi penting (PDF, hapus background, konversi, unduhan, AI) dicatat di sini.
+        Entri otomatis dihapus setelah <strong>30 menit</strong> — termasuk saat aplikasi sudah ditutup
+        (pembersihan dijalankan lagi saat server dinyalakan berikutnya).
+      </p>
+
+      <div class="history-actions">
+        <button type="button" class="btn-primary" id="btnRefresh">Muat ulang</button>
+        <button type="button" class="btn-danger-ghost" id="btnClearAll">Hapus semua</button>
+      </div>
+
+      <div class="history-list" id="historyList">
+        <div class="history-empty">Memuat…</div>
+      </div>
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/history.js"></script>
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+</body>
+</html>

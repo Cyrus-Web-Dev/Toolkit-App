@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Resume ATS AI — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+<link rel="stylesheet" href="css/ai.css">
+</head>
+<body class="mode-online">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Resume ATS AI</span>
+    </div>
+    <span class="tier-tag tier-online">online · pakai Gemini</span>
+  </header>
+
+  <main class="tool-shell">
+
+    <div class="notice-box notice-warn" id="offlineBanner" style="display:none">
+      <strong>Tidak ada koneksi internet.</strong> Fitur ini butuh internet untuk menghubungi Gemini API.
+    </div>
+
+    <section class="tool-panel ai-layout">
+
+      <form class="ai-form" id="resumeForm">
+        <h2>Data Mentah Kamu</h2>
+        <p class="tool-hint">Beda dari CV Builder: resume ini ditarget ke <strong>satu posisi lamaran spesifik</strong> dan dioptimasi kata kunci ATS. Tulis bebas, AI yang merapikan — fakta tidak diubah.</p>
+
+        <label>Nama lengkap
+          <input type="text" class="text-input" id="resNama" required>
+        </label>
+        <div class="field-row">
+          <label>Email (opsional)
+            <input type="email" class="text-input" id="resEmail">
+          </label>
+          <label>No. telepon (opsional)
+            <input type="text" class="text-input" id="resTelepon">
+          </label>
+        </div>
+        <label>Posisi yang dilamar
+          <input type="text" class="text-input" id="resPosisi" required placeholder="Contoh: Backend Developer">
+        </label>
+        <label>Deskripsi lowongan (opsional, tempel dari iklan loker biar kata kuncinya makin pas)
+          <textarea class="text-input textarea-input" id="resLowongan" rows="3" placeholder="Tempel deskripsi/kualifikasi lowongan di sini…"></textarea>
+        </label>
+        <label>Ringkasan karier singkat (opsional)
+          <textarea class="text-input textarea-input" id="resRingkasan" rows="2"></textarea>
+        </label>
+        <label>Riwayat pendidikan
+          <textarea class="text-input textarea-input" id="resPendidikan" rows="3" required
+            placeholder="Contoh: S1 Teknik Informatika, Universitas ABC, 2018-2022"></textarea>
+        </label>
+        <label>Riwayat pengalaman kerja
+          <textarea class="text-input textarea-input" id="resPengalaman" rows="4" required
+            placeholder="Contoh: Backend Developer di PT XYZ, 2022-sekarang, tugas: bangun API, optimasi database…"></textarea>
+        </label>
+        <label>Keahlian
+          <textarea class="text-input textarea-input" id="resKeahlian" rows="2" required
+            placeholder="Contoh: Node.js, PostgreSQL, Docker, REST API"></textarea>
+        </label>
+
+        <button type="submit" class="btn-primary" id="resGenerateBtn">Susun Resume dengan AI</button>
+      </form>
+
+      <div class="ai-result">
+        <h2>Preview Resume</h2>
+        <div class="cv-preview" id="resPreview">
+          <p class="tool-hint">Hasil dari AI akan muncul di sini…</p>
+        </div>
+        <button class="btn-primary" id="resDownloadBtn" disabled>Unduh sebagai PDF</button>
+      </div>
+
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/skeleton.js"></script>
+  <script src="js/online-guard.js"></script>
+  <script src="js/resume.js"></script>
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/guide.css">
+</head>
+<body>
+
+  <header class="top-rail">
+    <div class="brand">
+      <img src="assets/icon-64.png" alt="Toolkit App" class="brand-mark" aria-hidden="true">
+      <span class="brand-name">Toolkit<span class="brand-name-accent">.</span></span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <button type="button" id="btnGuide" class="history-link" title="Buka panduan penggunaan" style="cursor:pointer;background:none;font:inherit">Panduan</button>
+      <a href="history.html" class="history-link" title="Riwayat operasi">Riwayat</a>
+      <div class="power-readout" id="powerReadout" title="Status koneksi internet">
+        <span class="led" id="powerLed"></span>
+        <span class="readout-text" id="powerText">MEMERIKSA…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+
+    <section class="hero">
+      <p class="eyebrow">satu aplikasi, dua mode kerja</p>
+      <h1>Colok ke internet, fitur baru menyala.<br>Cabut, toolbox inti tetap jalan.</h1>
+      <p class="hero-sub">
+        Modul di bawah adalah "colokan" — nyala teal berarti selalu siap dipakai tanpa internet,
+        nyala amber berarti butuh daya dari internet untuk menyala.
+      </p>
+
+      <div class="socket-rail" id="socketRail" aria-label="Status modul">
+        <!-- diisi oleh app.js -->
+      </div>
+
+      <div class="module-search-wrap">
+        <svg class="module-search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="moduleSearch" class="module-search" placeholder="Cari modul… (misal: pdf, resume, background)" autocomplete="off">
+        <kbd class="module-search-kbd">/</kbd>
+      </div>
+    </section>
+
+    <section class="module-section recent-section" id="sectionRecent" hidden>
+      <div class="module-section-head">
+        <h2>Terakhir Dipakai</h2>
+        <span class="tier-tag tier-recent">akses cepat</span>
+      </div>
+      <div class="module-grid module-grid-recent" id="gridRecent"></div>
+    </section>
+
+    <section class="module-section" id="sectionOffline">
+      <div class="module-section-head">
+        <h2>Toolbox Offline</h2>
+        <span class="tier-tag tier-offline">selalu tersedia</span>
+      </div>
+      <div class="module-grid" id="gridOffline"></div>
+    </section>
+
+    <section class="module-section" id="sectionOnline">
+      <div class="module-section-head">
+        <h2>Ekstensi Online</h2>
+        <span class="tier-tag tier-online">butuh internet</span>
+      </div>
+      <div class="module-grid" id="gridOnline"></div>
+    </section>
+
+    <p class="module-empty-state" id="moduleEmptyState" hidden>Tidak ada modul yang cocok dengan pencarian "<span id="moduleEmptyQuery"></span>".</p>
+
+  </main>
+
+  <footer class="app-footer">
+    <span>Toolkit App · v0.3 · <a href="history.html" style="color:inherit;opacity:0.85">Riwayat operasi</a> · <button type="button" id="btnGuideFooter" style="background:none;border:none;color:inherit;opacity:0.85;font:inherit;cursor:pointer;padding:0;text-decoration:underline">Panduan penggunaan</button></span>
+  </footer>
+
+  <!-- ================= MODAL PANDUAN PENGGUNAAN ================= -->
+  <div class="guide-overlay" id="guideOverlay" role="dialog" aria-modal="true" aria-labelledby="guideTitle" hidden>
+    <div class="guide-modal">
+      <div class="guide-modal-head">
+        <img src="assets/icon-48.png" alt="" class="guide-logo">
+        <div>
+          <h2 id="guideTitle">Selamat datang di Toolkit App</h2>
+          <p class="guide-sub">Baca dulu sebentar biar tidak bingung — cuma 1 menit kok.</p>
+        </div>
+        <button type="button" class="guide-close" id="guideClose" aria-label="Tutup panduan">&times;</button>
+      </div>
+
+      <div class="guide-modal-body">
+
+        <div class="guide-block">
+          <h3><span class="guide-dot dot-teal"></span>Toolbox Offline — selalu menyala</h3>
+          <p>
+            Modul dengan tag <strong>teal</strong> (PDF Tools, Hapus Background, Konversi File, OCR,
+            Kompres Gambar, QR) jalan sepenuhnya di komputer kamu. Tidak butuh internet sama sekali,
+            tidak ada data yang dikirim keluar, dan tidak ada batas pemakaian harian.
+          </p>
+        </div>
+
+        <div class="guide-block">
+          <h3><span class="guide-dot dot-amber"></span>Ekstensi Online — butuh daya internet</h3>
+          <p>
+            Modul dengan tag <strong>amber</strong> (Surat Lamaran AI, CV Builder, AI Word/Excel/PPT,
+            Penyelesai Soal, Rangkum PDF, Kuis, Deteksi AI, Chat, PDF↔JPG, Office↔PDF, Downloader)
+            memakai Gemini AI atau layanan pihak ketiga, jadi wajib ada koneksi internet.
+            Kalau internet mati, kartu modul ini otomatis terkunci — sambungkan lagi internet untuk membukanya.
+          </p>
+        </div>
+
+        <div class="guide-block">
+          <h3><span class="guide-dot dot-neutral"></span>Kuota AI harian</h3>
+          <p>
+            Semua fitur AI (chat, surat lamaran, CV, solver, rangkuman, kuis, deteksi, office AI)
+            berbagi satu kuota harian. Kuota otomatis reset 24 jam setelah pemakaian pertama.
+            Kalau muncul pesan kuota habis, tunggu waktu reset yang ditampilkan atau coba lagi besok.
+          </p>
+        </div>
+
+        <div class="guide-block">
+          <h3><span class="guide-dot dot-neutral"></span>Riwayat &amp; data lokal</h3>
+          <p>
+            Setiap operasi tercatat di halaman <strong>Riwayat</strong> (link di kanan atas), tersimpan
+            di perangkatmu sendiri — bukan di server luar. File hasil olahan juga tidak diunggah kemana pun
+            kecuali memang fitur online yang kamu pakai (mis. AI) butuh memprosesnya.
+          </p>
+        </div>
+
+        <div class="guide-block">
+          <h3><span class="guide-dot dot-neutral"></span>Cara mulai</h3>
+          <p>
+            Klik kartu modul mana saja di bawah untuk membukanya. Kartu yang masih redup/terkunci artinya
+            butuh internet dulu. Tombol <strong>Panduan</strong> di pojok kanan atas bisa dibuka lagi kapan saja
+            kalau lupa.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="guide-modal-foot">
+        <label class="guide-checkbox">
+          <input type="checkbox" id="guideDontShow">
+          Jangan tampilkan otomatis lagi
+        </label>
+        <button type="button" class="guide-btn-primary" id="guideStart">Mengerti, mulai pakai</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/guide.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

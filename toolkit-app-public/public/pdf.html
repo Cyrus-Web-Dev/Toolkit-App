@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>PDF Tools — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+</head>
+<body class="mode-offline">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">PDF Tools</span>
+    </div>
+    <span class="tier-tag tier-offline">offline · lokal di perangkatmu</span>
+  </header>
+
+  <main class="tool-shell">
+
+    <nav class="tool-tabs" id="toolTabs">
+      <button class="tool-tab active" data-tool="merge">Gabung PDF</button>
+      <button class="tool-tab" data-tool="split">Pisah PDF</button>
+      <button class="tool-tab" data-tool="remove-pages">Hapus Halaman</button>
+      <button class="tool-tab" data-tool="extract-pages">Ekstrak Halaman</button>
+      <button class="tool-tab" data-tool="rotate">Putar Halaman</button>
+      <button class="tool-tab" data-tool="reorder">Susun Ulang</button>
+      <button class="tool-tab" data-tool="watermark">Watermark</button>
+      <button class="tool-tab" data-tool="page-numbers">Nomor Halaman</button>
+      <button class="tool-tab" data-tool="crop">Potong (Crop)</button>
+      <button class="tool-tab" data-tool="images-to-pdf">JPG/PNG ke PDF</button>
+      <button class="tool-tab" data-tool="compress">Kompres PDF</button>
+    </nav>
+
+    <section class="tool-panel">
+
+      <!-- MERGE -->
+      <div class="tool-view active" data-view="merge">
+        <h2>Gabung PDF</h2>
+        <p class="tool-hint">Pilih 2 file PDF atau lebih. Urutan file = urutan di hasil akhir.</p>
+        <div class="dropzone" data-input="mergeFiles">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="mergeFiles" accept="application/pdf" multiple hidden>
+        </div>
+        <ul class="file-list" id="mergeFileList"></ul>
+        <button class="btn-primary" id="mergeSubmit">Gabungkan &amp; Unduh</button>
+      </div>
+
+      <!-- SPLIT -->
+      <div class="tool-view" data-view="split">
+        <h2>Pisah PDF</h2>
+        <p class="tool-hint">Pilih satu file PDF, lalu tentukan rentang halaman untuk tiap bagian.</p>
+        <div class="dropzone" data-input="splitFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="splitFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="splitFileList"></ul>
+        <div class="range-builder" id="splitRanges"></div>
+        <button class="btn-ghost" id="splitAddRange">+ Tambah rentang halaman</button>
+        <button class="btn-primary" id="splitSubmit">Pisahkan &amp; Unduh (.zip)</button>
+      </div>
+
+      <!-- REMOVE PAGES -->
+      <div class="tool-view" data-view="remove-pages">
+        <h2>Hapus Halaman</h2>
+        <p class="tool-hint">Pilih file PDF, lalu tulis nomor halaman yang mau dihapus, pisahkan dengan koma. Contoh: 2, 5, 7</p>
+        <div class="dropzone" data-input="removeFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="removeFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="removeFileList"></ul>
+        <input type="text" class="text-input" id="removePagesInput" placeholder="Contoh: 2, 5, 7">
+        <button class="btn-primary" id="removeSubmit">Hapus Halaman &amp; Unduh</button>
+      </div>
+
+      <!-- ROTATE -->
+      <div class="tool-view" data-view="rotate">
+        <h2>Putar Halaman</h2>
+        <p class="tool-hint">Kosongkan kolom halaman untuk memutar semua halaman.</p>
+        <div class="dropzone" data-input="rotateFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="rotateFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="rotateFileList"></ul>
+        <div class="field-row">
+          <label>Sudut putar
+            <select id="rotateAngle" class="select-input">
+              <option value="90">90° searah jarum jam</option>
+              <option value="180">180°</option>
+              <option value="270">270°</option>
+              <option value="-90">90° berlawanan arah jarum jam</option>
+            </select>
+          </label>
+          <label>Halaman (opsional)
+            <input type="text" class="text-input" id="rotatePagesInput" placeholder="Contoh: 1, 3, 4 — kosongkan = semua">
+          </label>
+        </div>
+        <button class="btn-primary" id="rotateSubmit">Putar &amp; Unduh</button>
+      </div>
+
+      <!-- REORDER -->
+      <div class="tool-view" data-view="reorder">
+        <h2>Susun Ulang Halaman</h2>
+        <p class="tool-hint">Tulis urutan halaman baru, dipisah koma. Semua nomor halaman asli harus muncul tepat sekali. Contoh untuk PDF 4 halaman: 3, 1, 2, 4</p>
+        <div class="dropzone" data-input="reorderFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="reorderFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="reorderFileList"></ul>
+        <input type="text" class="text-input" id="reorderInput" placeholder="Contoh: 3, 1, 2, 4">
+        <button class="btn-primary" id="reorderSubmit">Susun Ulang &amp; Unduh</button>
+      </div>
+
+      <!-- WATERMARK -->
+      <div class="tool-view" data-view="watermark">
+        <h2>Tambah Watermark</h2>
+        <p class="tool-hint">Watermark teks diagonal ditambahkan ke semua halaman.</p>
+        <div class="dropzone" data-input="watermarkFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="watermarkFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="watermarkFileList"></ul>
+        <input type="text" class="text-input" id="watermarkText" placeholder="Teks watermark, contoh: RAHASIA">
+        <button class="btn-primary" id="watermarkSubmit">Tambah Watermark &amp; Unduh</button>
+      </div>
+
+      <!-- IMAGES TO PDF -->
+      <div class="tool-view" data-view="images-to-pdf">
+        <h2>JPG/PNG ke PDF</h2>
+        <p class="tool-hint">Pilih beberapa gambar sekaligus — tanpa perlu proses satu-satu. Urutan file = urutan halaman.</p>
+        <div class="dropzone" data-input="imgFiles">
+          <p>Seret gambar ke sini, atau klik untuk pilih (bisa banyak sekaligus)</p>
+          <input type="file" id="imgFiles" accept="image/jpeg,image/png" multiple hidden>
+        </div>
+        <ul class="file-list" id="imgFileList"></ul>
+        <button class="btn-primary" id="imgSubmit">Jadikan PDF &amp; Unduh</button>
+      </div>
+
+      <!-- EXTRACT PAGES -->
+      <div class="tool-view" data-view="extract-pages">
+        <h2>Ekstrak Halaman</h2>
+        <p class="tool-hint">Ambil halaman tertentu dan jadikan PDF baru. Contoh: 1, 3, 5-7</p>
+        <div class="dropzone" data-input="extractFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="extractFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="extractFileList"></ul>
+        <input type="text" class="text-input" id="extractPagesInput" placeholder="Contoh: 1, 3, 5-7">
+        <button class="btn-primary" id="extractSubmit">Ekstrak &amp; Unduh</button>
+      </div>
+
+      <!-- PAGE NUMBERS -->
+      <div class="tool-view" data-view="page-numbers">
+        <h2>Nomor Halaman</h2>
+        <p class="tool-hint">Tambahkan nomor di setiap halaman. Gunakan {n} untuk nomor dan {total} untuk jumlah total.</p>
+        <div class="dropzone" data-input="pageNumFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="pageNumFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="pageNumFileList"></ul>
+        <div class="field-row">
+          <label>Posisi
+            <select id="pageNumPos" class="select-input">
+              <option value="bottom-center">Bawah tengah</option>
+              <option value="bottom-right">Bawah kanan</option>
+              <option value="bottom-left">Bawah kiri</option>
+            </select>
+          </label>
+          <label>Mulai dari
+            <input type="number" class="text-input" id="pageNumStart" value="1" min="1">
+          </label>
+        </div>
+        <label>Format teks
+          <input type="text" class="text-input" id="pageNumFormat" value="Halaman {n} dari {total}">
+        </label>
+        <button class="btn-primary" id="pageNumSubmit">Tambah Nomor &amp; Unduh</button>
+      </div>
+
+      <!-- CROP -->
+      <div class="tool-view" data-view="crop">
+        <h2>Potong (Crop) PDF</h2>
+        <p class="tool-hint">Potong margin dari tiap sisi (satuan point; 72 pt ≈ 1 inch ≈ 2,54 cm). Berlaku ke semua halaman.</p>
+        <div class="dropzone" data-input="cropFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="cropFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="cropFileList"></ul>
+        <div class="field-row">
+          <label>Atas (pt)<input type="number" class="text-input" id="cropTop" value="0" min="0"></label>
+          <label>Bawah (pt)<input type="number" class="text-input" id="cropBottom" value="0" min="0"></label>
+        </div>
+        <div class="field-row">
+          <label>Kiri (pt)<input type="number" class="text-input" id="cropLeft" value="0" min="0"></label>
+          <label>Kanan (pt)<input type="number" class="text-input" id="cropRight" value="0" min="0"></label>
+        </div>
+        <button class="btn-primary" id="cropSubmit">Potong &amp; Unduh</button>
+      </div>
+
+      <!-- COMPRESS -->
+      <div class="tool-view" data-view="compress">
+        <h2>Kompres PDF</h2>
+        <p class="tool-hint">Merapikan struktur internal file untuk mengecilkan ukuran. Catatan: penurunan ukurannya terbatas kalau PDF berisi banyak gambar resolusi tinggi — kompresi gambar mendalam akan ditambahkan di pembaruan berikutnya.</p>
+        <div class="dropzone" data-input="compressFile">
+          <p>Seret file ke sini, atau klik untuk pilih</p>
+          <input type="file" id="compressFile" accept="application/pdf" hidden>
+        </div>
+        <ul class="file-list" id="compressFileList"></ul>
+        <button class="btn-primary" id="compressSubmit">Kompres &amp; Unduh</button>
+      </div>
+
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/download-progress.js"></script>
+  <script src="js/pdf.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Surat Lamaran AI — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+<link rel="stylesheet" href="css/ai.css">
+</head>
+<body class="mode-online">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Surat Lamaran AI</span>
+    </div>
+    <span class="tier-tag tier-online">online · pakai Gemini</span>
+  </header>
+
+  <main class="tool-shell">
+
+    <div class="notice-box notice-warn" id="offlineBanner" style="display:none">
+      <strong>Tidak ada koneksi internet.</strong> Fitur ini butuh internet untuk menghubungi Gemini API.
+    </div>
+
+    <section class="tool-panel ai-layout">
+
+      <form class="ai-form" id="clForm">
+        <h2>Data untuk Surat Lamaran</h2>
+
+        <label>Nama lengkap
+          <input type="text" class="text-input" id="clNama" required>
+        </label>
+        <div class="field-row">
+          <label>Email (opsional)
+            <input type="email" class="text-input" id="clEmail">
+          </label>
+          <label>No. telepon (opsional)
+            <input type="text" class="text-input" id="clTelepon">
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Posisi yang dilamar
+            <input type="text" class="text-input" id="clPosisi" required>
+          </label>
+          <label>Nama perusahaan
+            <input type="text" class="text-input" id="clPerusahaan" required>
+          </label>
+        </div>
+        <label>Ringkasan pengalaman / kualifikasi
+          <textarea class="text-input textarea-input" id="clPengalaman" rows="4" required
+            placeholder="Contoh: 2 tahun sebagai staf admin, terbiasa mengelola data dan laporan bulanan..."></textarea>
+        </label>
+        <label>Keahlian utama
+          <textarea class="text-input textarea-input" id="clKeahlian" rows="2" required
+            placeholder="Contoh: Microsoft Excel, komunikasi, manajemen waktu"></textarea>
+        </label>
+        <label>Gaya bahasa
+          <select class="select-input" id="clTone">
+            <option value="formal">Formal</option>
+            <option value="santai">Semi-formal / santai</option>
+          </select>
+        </label>
+
+        <button type="submit" class="btn-primary" id="clGenerateBtn">Buatkan Surat dengan AI</button>
+      </form>
+
+      <div class="ai-result">
+        <h2>Hasil</h2>
+        <p class="tool-hint">Kamu bisa edit langsung hasilnya sebelum diunduh.</p>
+        <textarea class="text-input textarea-input result-textarea" id="clResult" rows="18"
+          placeholder="Hasil dari AI akan muncul di sini…"></textarea>
+        <button class="btn-primary" id="clDownloadBtn" disabled>Unduh sebagai PDF</button>
+      </div>
+
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/online-guard.js"></script>
+  <script src="js/cover-letter.js"></script>
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+</body>
+</html>

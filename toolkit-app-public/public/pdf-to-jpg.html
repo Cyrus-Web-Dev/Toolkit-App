@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>PDF ke JPG — Toolkit App</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/tools.css">
+</head>
+<body class="mode-online">
+<header class="top-rail">
+  <div class="brand"><a href="app.html" class="back-link">←</a><span class="brand-mark"></span><span class="brand-name">PDF ke JPG</span></div>
+  <span class="tier-tag tier-online">🌐 butuh Poppler</span>
+</header>
+<main class="tool-shell">
+  <div class="notice-box">Membutuhkan <code>pdftoppm</code> (Poppler). Status: <span id="toolStatus">memeriksa…</span></div>
+  <section class="tool-panel">
+    <form id="form">
+      <div class="dropzone" id="drop"><p id="dropLabel">Pilih file PDF</p>
+        <input type="file" id="file" accept="application/pdf" hidden></div>
+      <ul class="file-list" id="fileList"></ul>
+      <label style="margin-top:10px;display:block">DPI
+        <select class="select-input" id="dpi"><option>96</option><option selected>120</option><option>150</option><option>200</option></select>
+      </label>
+      <button class="btn-primary" id="btn" type="submit" style="margin-top:12px" disabled>Konversi</button>
+    </form>
+  </section>
+  <p class="status-line" id="statusLine"></p>
+</main>
+<script src="js/download-progress.js"></script>
+<script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+<script src="js/pdf-to-jpg.js"></script>
+</body></html>

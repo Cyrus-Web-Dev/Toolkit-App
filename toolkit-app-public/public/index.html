@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#14181c">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .intro {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 900px 600px at 50% 30%, rgba(63, 167, 150, 0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 80% 80%, rgba(232, 163, 61, 0.08), transparent 60%),
+      var(--ink);
+    cursor: pointer;
+  }
+
+  /* garis grid halus di background biar terasa "toolkit" bukan generik */
+  .intro::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .intro-logo-wrap {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: scale(0.82) translateY(6px);
+    animation: introLogoIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  }
+
+  .intro-logo-ring {
+    position: absolute;
+    inset: -14px;
+    border-radius: 28px;
+    border: 1px solid var(--line);
+    opacity: 0;
+    animation: introRingIn 1s ease-out 0.5s forwards;
+  }
+
+  .intro-logo-glow {
+    position: absolute;
+    inset: -30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(63, 167, 150, 0.28), rgba(232, 163, 61, 0.12) 55%, transparent 72%);
+    filter: blur(6px);
+    opacity: 0;
+    animation: introGlowIn 1.4s ease-out 0.2s forwards;
+  }
+
+  .intro-logo-img {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    border-radius: 26px;
+    display: block;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+  }
+
+  .intro-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.1rem;
+    letter-spacing: -0.02em;
+    margin: 0;
+    opacity: 0;
+    animation: introTextIn 0.7s ease-out 0.55s forwards;
+  }
+  .intro-name .accent { color: var(--amber); }
+
+  .intro-tagline {
+    margin: 10px 0 0;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    max-width: 380px;
+    line-height: 1.5;
+    opacity: 0;
+    animation: introTextIn 0.7s ease-out 0.72s forwards;
+  }
+
+  .intro-progress {
+    margin-top: 34px;
+    width: 220px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--panel-2);
+    overflow: hidden;
+    opacity: 0;
+    animation: introTextIn 0.5s ease-out 0.9s forwards;
+  }
+  .intro-progress-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--teal), var(--amber));
+    animation: introProgress 1.7s ease-in-out 0.95s forwards;
+  }
+
+  .intro-skip {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    opacity: 0;
+    animation: introTextIn 0.5s ease-out 1.3s forwards;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .intro-skip:hover { color: var(--text); border-color: var(--text-dim); }
+
+  .intro.leaving {
+    animation: introFadeOut 0.35s ease-in forwards;
+  }
+
+  @keyframes introLogoIn {
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes introRingIn {
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes introGlowIn {
+    to { opacity: 1; }
+  }
+  @keyframes introTextIn {
+    to { opacity: 1; }
+  }
+  @keyframes introProgress {
+    to { width: 100%; }
+  }
+  @keyframes introFadeOut {
+    to { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro-logo-wrap, .intro-logo-ring, .intro-logo-glow, .intro-name,
+    .intro-tagline, .intro-progress, .intro-skip {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="intro" id="introScreen">
+    <div class="intro-logo-wrap">
+      <span class="intro-logo-glow" aria-hidden="true"></span>
+      <span class="intro-logo-ring" aria-hidden="true"></span>
+      <img src="assets/icon-256.png" alt="Toolkit App" class="intro-logo-img">
+    </div>
+
+    <h1 class="intro-name">Toolkit<span class="accent">.</span></h1>
+    <p class="intro-tagline">
+      Satu aplikasi, dua mode kerja — toolbox offline yang selalu siap,
+      dan ekstensi AI saat kamu online.
+    </p>
+
+    <div class="intro-progress" aria-hidden="true">
+      <div class="intro-progress-bar"></div>
+    </div>
+
+    <button type="button" class="intro-skip" id="introSkip">LEWATI</button>
+  </div>
+
+  <script>
+    (function () {
+      const screen = document.getElementById('introScreen');
+      const skipBtn = document.getElementById('introSkip');
+      const DEST = 'app.html';
+      let navigated = false;
+
+      function goToApp() {
+        if (navigated) return;
+        navigated = true;
+        screen.classList.add('leaving');
+        setTimeout(function () {
+          window.location.href = DEST;
+        }, 320);
+      }
+
+      // Auto lanjut setelah animasi selesai
+      const AUTO_MS = 2900;
+      const timer = setTimeout(goToApp, AUTO_MS);
+
+      // Klik di mana saja atau tombol "Lewati" langsung lanjut
+      skipBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        clearTimeout(timer);
+        goToApp();
+      });
+      screen.addEventListener('click', function () {
+        clearTimeout(timer);
+        goToApp();
+      });
+
+      // Tekan tombol apa saja juga lanjut (aksesibilitas + power user)
+      document.addEventListener('keydown', function () {
+        clearTimeout(timer);
+        goToApp();
+      });
+    })();
+  </script>
+
+</body>
+</html>

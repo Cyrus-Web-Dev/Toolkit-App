@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>AI Word / Excel / PPT — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+<link rel="stylesheet" href="css/ai.css">
+</head>
+<body class="mode-online">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">AI Word / Excel / PPT</span>
+    </div>
+    <span class="tier-tag tier-online">online · pakai Gemini</span>
+  </header>
+
+  <main class="tool-shell">
+
+    <div class="notice-box notice-warn" id="offlineBanner" style="display:none">
+      <strong>Tidak ada koneksi internet.</strong> Fitur ini butuh internet untuk menghubungi Gemini API.
+    </div>
+
+    <section class="tool-panel">
+      <form id="officeForm" class="ai-form" style="max-width:100%">
+        <h2>Buat dokumen dengan perintah AI</h2>
+        <p class="tool-hint">
+          Tulis apa yang kamu inginkan. Contoh:
+          “Buatkan proposal bisnis kafe 3 halaman”,
+          “Tabel jadwal pelajaran Senin–Jumat”,
+          “Presentasi 6 slide tentang tips produktivitas”.
+        </p>
+
+        <label>Jenis file
+          <select class="select-input" id="officeType">
+            <option value="word">Word (.docx)</option>
+            <option value="excel">Excel (.xlsx)</option>
+            <option value="ppt">PowerPoint (.pptx)</option>
+          </select>
+        </label>
+
+        <label>Perintah / prompt
+          <textarea class="text-input textarea-input" id="officePrompt" rows="6" required
+            placeholder="Contoh: Buatkan surat resmi permohonan izin cuti 5 hari atas nama Budi Santoso, perusahaan PT Maju Jaya…"></textarea>
+        </label>
+
+        <button type="submit" class="btn-primary" id="officeBtn">Buatkan dengan AI &amp; Unduh</button>
+      </form>
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/online-guard.js"></script>
+  <script src="js/office.js"></script>
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+</body>
+</html>

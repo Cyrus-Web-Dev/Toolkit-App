@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>CV Builder AI — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+<link rel="stylesheet" href="css/ai.css">
+</head>
+<body class="mode-online">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">CV Builder AI</span>
+    </div>
+    <span class="tier-tag tier-online">online · pakai Gemini</span>
+  </header>
+
+  <main class="tool-shell">
+
+    <div class="notice-box notice-warn" id="offlineBanner" style="display:none">
+      <strong>Tidak ada koneksi internet.</strong> Fitur ini butuh internet untuk menghubungi Gemini API.
+    </div>
+
+    <section class="tool-panel ai-layout">
+
+      <form class="ai-form" id="cvForm">
+        <h2>Data Mentah Kamu</h2>
+        <p class="tool-hint">Tulis bebas saja, tidak perlu rapi — AI yang akan merapikannya. Fakta (nama perusahaan, tanggal, gelar) tidak akan diubah, cuma dirapikan bahasanya.</p>
+
+        <label>Nama lengkap
+          <input type="text" class="text-input" id="cvNama" required>
+        </label>
+        <div class="field-row">
+          <label>Email (opsional)
+            <input type="email" class="text-input" id="cvEmail">
+          </label>
+          <label>No. telepon (opsional)
+            <input type="text" class="text-input" id="cvTelepon">
+          </label>
+        </div>
+        <label>Alamat / kota (opsional)
+          <input type="text" class="text-input" id="cvAlamat">
+        </label>
+        <label>Ringkasan karier singkat (opsional, AI akan kembangkan)
+          <textarea class="text-input textarea-input" id="cvRingkasan" rows="2"></textarea>
+        </label>
+        <label>Riwayat pendidikan
+          <textarea class="text-input textarea-input" id="cvPendidikan" rows="3" required
+            placeholder="Contoh: S1 Teknik Informatika, Universitas ABC, 2018-2022"></textarea>
+        </label>
+        <label>Riwayat pengalaman kerja
+          <textarea class="text-input textarea-input" id="cvPengalaman" rows="4" required
+            placeholder="Contoh: Staff IT di PT XYZ, 2022-sekarang, tugas: maintain jaringan kantor, support user..."></textarea>
+        </label>
+        <label>Keahlian
+          <textarea class="text-input textarea-input" id="cvKeahlian" rows="2" required
+            placeholder="Contoh: Python, jaringan komputer, troubleshooting"></textarea>
+        </label>
+        <label>Sertifikasi / lainnya (opsional)
+          <textarea class="text-input textarea-input" id="cvSertifikasi" rows="2"></textarea>
+        </label>
+
+        <button type="submit" class="btn-primary" id="cvGenerateBtn">Susun CV dengan AI</button>
+      </form>
+
+      <div class="ai-result">
+        <h2>Preview CV</h2>
+        <div class="cv-preview" id="cvPreview">
+          <p class="tool-hint">Hasil dari AI akan muncul di sini…</p>
+        </div>
+        <button class="btn-primary" id="cvDownloadBtn" disabled>Unduh sebagai PDF</button>
+      </div>
+
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/skeleton.js"></script>
+  <script src="js/online-guard.js"></script>
+  <script src="js/cv.js"></script>
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+</body>
+</html>

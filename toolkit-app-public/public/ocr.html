@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>OCR — Toolkit App</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/tools.css">
+</head>
+<body class="mode-offline">
+<header class="top-rail">
+  <div class="brand"><a href="app.html" class="back-link">←</a><span class="brand-mark"></span><span class="brand-name">OCR Teks dari Gambar</span></div>
+  <span class="tier-tag tier-offline">📴 offline · tesseract.js</span>
+</header>
+<main class="tool-shell">
+  <div class="notice-box">Pemakaian pertama mengunduh data bahasa (~2–20MB). Setelah itu 100% offline.</div>
+  <section class="tool-panel">
+    <h2>Ekstrak teks dari gambar</h2>
+    <div class="dropzone" id="ocrDrop"><p>Seret gambar / screenshot ke sini</p>
+      <input type="file" id="ocrFile" accept="image/*" hidden></div>
+    <div class="field-row" style="margin-top:12px">
+      <label>Bahasa
+        <select class="select-input" id="ocrLang">
+          <option value="ind+eng">Indonesia + Inggris</option>
+          <option value="eng">Inggris</option>
+          <option value="ind">Indonesia</option>
+        </select>
+      </label>
+    </div>
+    <button class="btn-primary" id="ocrBtn" disabled style="margin-top:10px">Jalankan OCR</button>
+    <textarea class="text-input textarea-input" id="ocrOut" rows="12" style="margin-top:14px" placeholder="Hasil teks muncul di sini…"></textarea>
+    <button class="btn-ghost" id="ocrCopy" style="margin-top:8px">Salin teks</button>
+  </section>
+  <p class="status-line" id="statusLine"></p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+<script src="js/ocr.js"></script>
+</body></html>

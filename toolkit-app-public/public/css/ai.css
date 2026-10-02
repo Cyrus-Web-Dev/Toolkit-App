@@ -1,0 +1,179 @@
+.notice-warn {
+  background: rgba(217, 97, 79, 0.12);
+  border-color: rgba(217, 97, 79, 0.4);
+  align-items: center;
+  gap: 8px;
+}
+.notice-warn strong { color: var(--danger); }
+
+.ai-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+@media (max-width: 780px) {
+  .ai-layout { grid-template-columns: 1fr; }
+}
+
+.ai-form, .ai-result { display: flex; flex-direction: column; }
+.ai-form h2, .ai-result h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin: 0 0 6px;
+}
+.ai-form label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.textarea-input { resize: vertical; font-family: var(--font-body); }
+
+.ai-form .btn-primary, .ai-result .btn-primary { margin-top: 6px; align-self: flex-start; }
+
+.result-textarea {
+  flex-grow: 1;
+  min-height: 340px;
+  font-family: var(--font-body);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.cv-preview {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  margin-bottom: 14px;
+  min-height: 340px;
+  overflow-y: auto;
+}
+.cv-preview .cv-name { font-family: var(--font-display); font-size: 1.3rem; margin: 0 0 4px; }
+.cv-preview .cv-contact { color: var(--text-dim); font-size: 0.8rem; margin: 0 0 16px; }
+.cv-preview section { margin-bottom: 14px; }
+.cv-preview h4 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--teal);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 4px;
+  margin: 0 0 8px;
+}
+.cv-preview p { font-size: 0.85rem; line-height: 1.55; margin: 0; color: var(--text); }
+.cv-item { margin-bottom: 10px; }
+.cv-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.85rem;
+  margin-bottom: 3px;
+}
+.cv-item-head span { color: var(--text-dim); font-size: 0.75rem; white-space: nowrap; }
+
+.cv-preview ul.bullet-list { margin: 4px 0 0; padding-left: 16px; }
+.cv-preview ul.bullet-list li { font-size: 0.85rem; line-height: 1.55; color: var(--text); margin-bottom: 3px; }
+
+/* ================= RESUME ATS: skor & kata kunci ================= */
+.ats-score-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.ats-score-ring {
+  --pct: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(var(--score-color, var(--teal)) calc(var(--pct) * 1%), var(--line) 0);
+  position: relative;
+}
+.ats-score-ring::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--panel-2);
+}
+.ats-score-ring span {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.ats-score-text { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+.ats-score-text strong { color: var(--text); }
+
+.ats-keywords { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; }
+.ats-keywords span {
+  font-size: 0.72rem;
+  background: var(--teal-dim);
+  color: var(--teal);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ================= PORTOFOLIO: preview & pilihan warna ================= */
+.pf-preview-frame {
+  width: 100%;
+  height: 480px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0b0c10;
+  margin-bottom: 14px;
+}
+.pf-accent-picker { display: flex; gap: 10px; align-items: center; margin-bottom: 4px; }
+.pf-accent-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.pf-accent-swatch:hover { transform: scale(1.08); }
+.pf-accent-swatch.active { border-color: var(--text); }
+
+/* ================= SKELETON LOADING (saat menunggu Gemini) ================= */
+.skeleton-wrap { display: flex; flex-direction: column; gap: 10px; padding: 2px 0; }
+.skeleton-line {
+  height: 12px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--panel-2) 25%, var(--line) 50%, var(--panel-2) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
+}
+.skeleton-line.w-40 { width: 40%; }
+.skeleton-line.w-55 { width: 55%; }
+.skeleton-line.w-70 { width: 70%; }
+.skeleton-line.w-85 { width: 85%; }
+.skeleton-line.w-100 { width: 100%; }
+.skeleton-line.tall { height: 20px; margin-bottom: 4px; }
+.skeleton-block {
+  height: 56px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--panel-2) 25%, var(--line) 50%, var(--panel-2) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
+  margin-top: 4px;
+}
+
+@keyframes skeletonShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-line, .skeleton-block { animation: none; opacity: 0.6; }
+}

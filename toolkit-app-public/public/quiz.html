@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Kuis & Flashcard — Toolkit App</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/tools.css"><link rel="stylesheet" href="css/ai.css">
+</head>
+<body class="mode-online">
+<header class="top-rail">
+  <div class="brand"><a href="app.html" class="back-link">←</a><span class="brand-mark"></span><span class="brand-name">Generator Kuis & Flashcard</span></div>
+  <span class="tier-tag tier-online">🌐 online</span>
+</header>
+<main class="tool-shell">
+  <div class="notice-box notice-warn" id="offlineBanner" style="display:none"><strong>Offline.</strong></div>
+  <section class="tool-panel">
+    <form id="form" class="ai-form" style="max-width:100%">
+      <label>Materi / catatan<textarea class="text-input textarea-input" id="text" rows="8" required placeholder="Tempel catatan kuliah di sini…"></textarea></label>
+      <label>Jumlah soal<input class="text-input" type="number" id="count" value="5" min="3" max="20"></label>
+      <button class="btn-primary" id="btn" type="submit">Buat Kuis & Flashcard</button>
+    </form>
+    <div id="out" style="margin-top:16px"></div>
+  </section>
+</main>
+<script src="js/online-guard.js"></script>
+<script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+<script>
+const btn=document.getElementById('btn');
+initOnlineGuard('offlineBanner',[btn]);
+document.getElementById('form').onsubmit=async(e)=>{
+  e.preventDefault(); btn.disabled=true;
+  try{
+    const res=await fetch('/api/ai/quiz/generate',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ text:document.getElementById('text').value, count:+document.getElementById('count').value||5 })
+    });
+    const data=await res.json();
+    if(!res.ok||!data.ok) throw new Error(data.message||'Gagal');
+    let html='<h3>Kuis</h3>';
+    (data.quiz||[]).forEach((q,i)=>{
+      html+=`<div class="notice-box" style="margin-bottom:10px"><strong>${i+1}. ${q.question}</strong><ul>`+
+        (q.options||[]).map((o,oi)=>`<li>${oi===q.answerIndex?'✅ ':''}${o}</li>`).join('')+
+        `</ul><small>${q.explanation||''}</small></div>`;
+    });
+    html+='<h3>Flashcard</h3>';
+    (data.flashcards||[]).forEach(f=>{
+      html+=`<div class="notice-box" style="margin-bottom:8px"><strong>${f.front}</strong><br>${f.back}</div>`;
+    });
+    document.getElementById('out').innerHTML=html;
+    toast.success('Kuis siap', `${(data.quiz||[]).length} soal dibuat`);
+  }catch(err){toast.error('Gagal',err.message);}
+  finally{btn.disabled=false;}
+};
+</script>
+</body></html>

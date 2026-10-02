@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Portofolio AI — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+<link rel="stylesheet" href="css/ai.css">
+</head>
+<body class="mode-online">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Portofolio AI</span>
+    </div>
+    <span class="tier-tag tier-online">online · pakai Gemini</span>
+  </header>
+
+  <main class="tool-shell">
+
+    <div class="notice-box notice-warn" id="offlineBanner" style="display:none">
+      <strong>Tidak ada koneksi internet.</strong> Fitur ini butuh internet untuk menghubungi Gemini API.
+    </div>
+
+    <section class="tool-panel ai-layout">
+
+      <form class="ai-form" id="pfForm">
+        <h2>Data Mentah Kamu</h2>
+        <p class="tool-hint">Hasilnya berupa 1 file <strong>website portofolio</strong> (HTML) yang bisa langsung dibuka di browser atau di-hosting sendiri. Tulis bebas, AI yang merapikan jadi konten yang menarik.</p>
+
+        <label>Nama lengkap
+          <input type="text" class="text-input" id="pfNama" required>
+        </label>
+        <label>Profesi / peran
+          <input type="text" class="text-input" id="pfProfesi" required placeholder="Contoh: UI/UX Designer">
+        </label>
+        <label>Tentang diri (bebas format)
+          <textarea class="text-input textarea-input" id="pfTentang" rows="3" required
+            placeholder="Ceritakan latar belakang, fokus kerja, hal yang kamu banggakan…"></textarea>
+        </label>
+        <label>Proyek / karya (bisa lebih dari satu, pisahkan per baris)
+          <textarea class="text-input textarea-input" id="pfProyek" rows="4" required
+            placeholder="Contoh: Redesign aplikasi mobile bank X, tingkatkan retensi 15%, pakai Figma..."></textarea>
+        </label>
+        <label>Keahlian
+          <textarea class="text-input textarea-input" id="pfKeahlian" rows="2" required
+            placeholder="Contoh: Figma, Design System, User Research"></textarea>
+        </label>
+
+        <div class="field-row">
+          <label>Email (opsional)
+            <input type="email" class="text-input" id="pfEmail">
+          </label>
+          <label>Website (opsional)
+            <input type="text" class="text-input" id="pfWebsite">
+          </label>
+        </div>
+        <div class="field-row">
+          <label>LinkedIn (opsional)
+            <input type="text" class="text-input" id="pfLinkedin">
+          </label>
+          <label>GitHub (opsional)
+            <input type="text" class="text-input" id="pfGithub">
+          </label>
+        </div>
+
+        <label>Warna aksen</label>
+        <div class="pf-accent-picker" id="pfAccentPicker">
+          <span class="pf-accent-swatch active" data-a1="#6d5efc" data-a2="#22d3c5" style="background:linear-gradient(135deg,#6d5efc,#22d3c5)" title="Ungu-Tosca"></span>
+          <span class="pf-accent-swatch" data-a1="#e8a33d" data-a2="#3fa796" style="background:linear-gradient(135deg,#e8a33d,#3fa796)" title="Amber-Teal"></span>
+          <span class="pf-accent-swatch" data-a1="#ef5da8" data-a2="#6d5efc" style="background:linear-gradient(135deg,#ef5da8,#6d5efc)" title="Pink-Ungu"></span>
+          <span class="pf-accent-swatch" data-a1="#2fb4e8" data-a2="#22d3c5" style="background:linear-gradient(135deg,#2fb4e8,#22d3c5)" title="Biru-Tosca"></span>
+        </div>
+
+        <button type="submit" class="btn-primary" id="pfGenerateBtn">Susun Portofolio dengan AI</button>
+      </form>
+
+      <div class="ai-result">
+        <h2>Preview Portofolio</h2>
+        <iframe class="pf-preview-frame" id="pfPreviewFrame" title="Preview portofolio" sandbox=""></iframe>
+        <button class="btn-primary" id="pfDownloadBtn" disabled>Unduh Website (.html)</button>
+      </div>
+
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/skeleton.js"></script>
+  <script src="js/online-guard.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+</body>
+</html>

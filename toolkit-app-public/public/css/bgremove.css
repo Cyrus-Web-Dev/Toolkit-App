@@ -1,0 +1,82 @@
+.bg-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.bg-summary {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.bg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.bg-card {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.bg-thumb-wrap {
+  aspect-ratio: 1 / 1;
+  background-image:
+    linear-gradient(45deg, #2a3138 25%, transparent 25%),
+    linear-gradient(-45deg, #2a3138 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #2a3138 75%),
+    linear-gradient(-45deg, transparent 75%, #2a3138 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+  background-color: #1f252b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bg-thumb-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.bg-card-info {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bg-filename {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bg-status {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+}
+.bg-status.pending { color: var(--text-dim); }
+.bg-status.processing { color: var(--amber); }
+.bg-status.done { color: var(--teal); }
+.bg-status.error { color: var(--danger); }
+
+.bg-download-link {
+  font-size: 0.7rem;
+  color: var(--teal);
+  text-decoration: none;
+}
+.bg-download-link:hover { text-decoration: underline; }

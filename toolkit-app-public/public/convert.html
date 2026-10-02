@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){try{var t=localStorage.getItem("toolkitapp_theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="assets/icon-32.png">
+<title>Konversi File — Toolkit App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/tools.css">
+</head>
+<body class="mode-offline">
+
+  <header class="top-rail">
+    <div class="brand">
+      <a href="app.html" class="back-link" title="Kembali ke beranda">←</a>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Konversi File</span>
+    </div>
+    <span class="tier-tag tier-offline">offline · diproses lokal</span>
+  </header>
+
+  <main class="tool-shell">
+
+    <nav class="tool-tabs" id="toolTabs">
+      <button class="tool-tab active" data-tool="image">Gambar</button>
+      <button class="tool-tab" data-tool="audio">Audio</button>
+      <button class="tool-tab" data-tool="video">Video</button>
+      <button class="tool-tab" data-tool="video-to-audio">Video → MP3</button>
+      <button class="tool-tab" data-tool="csv-json">CSV ⇄ JSON</button>
+    </nav>
+
+    <section class="tool-panel">
+
+      <!-- GAMBAR -->
+      <div class="tool-view active" data-view="image">
+        <h2>Konversi Gambar</h2>
+        <p class="tool-hint">Mendukung input JPG, PNG, WEBP, GIF, BMP, TIFF. Bisa juga diperkecil ukurannya sekalian.</p>
+        <div class="dropzone" data-input="imageFile">
+          <p>Seret gambar ke sini, atau klik untuk pilih</p>
+          <input type="file" id="imageFile" accept="image/*" hidden>
+        </div>
+        <ul class="file-list" id="imageFileList"></ul>
+        <div class="field-row">
+          <label>Format tujuan
+            <select id="imageTo" class="select-input">
+              <option value="jpeg">JPG</option>
+              <option value="png">PNG</option>
+              <option value="webp">WEBP</option>
+              <option value="avif">AVIF</option>
+              <option value="tiff">TIFF</option>
+            </select>
+          </label>
+          <label>Lebar maks (px, opsional)
+            <input type="number" class="text-input" id="imageWidth" placeholder="Contoh: 1280">
+          </label>
+        </div>
+        <button class="btn-primary" id="imageSubmit">Konversi &amp; Unduh</button>
+      </div>
+
+      <!-- AUDIO -->
+      <div class="tool-view" data-view="audio">
+        <h2>Konversi Audio</h2>
+        <p class="tool-hint">Diproses pakai ffmpeg lokal. Mendukung MP3, WAV, OGG, M4A, FLAC.</p>
+        <div class="dropzone" data-input="audioFile">
+          <p>Seret file audio ke sini, atau klik untuk pilih</p>
+          <input type="file" id="audioFile" accept="audio/*" hidden>
+        </div>
+        <ul class="file-list" id="audioFileList"></ul>
+        <div class="field-row">
+          <label>Format tujuan
+            <select id="audioTo" class="select-input">
+              <option value="mp3">MP3</option>
+              <option value="wav">WAV</option>
+              <option value="ogg">OGG</option>
+              <option value="m4a">M4A</option>
+              <option value="flac">FLAC</option>
+            </select>
+          </label>
+          <label>Bitrate (opsional)
+            <select id="audioBitrate" class="select-input">
+              <option value="">Default</option>
+              <option value="128k">128 kbps</option>
+              <option value="192k">192 kbps</option>
+              <option value="320k">320 kbps</option>
+            </select>
+          </label>
+        </div>
+        <button class="btn-primary" id="audioSubmit">Konversi &amp; Unduh</button>
+      </div>
+
+      <!-- VIDEO -->
+      <div class="tool-view" data-view="video">
+        <h2>Konversi Video</h2>
+        <p class="tool-hint">Diproses pakai ffmpeg lokal. File besar bisa makan waktu — sabar ya.</p>
+        <div class="dropzone" data-input="videoFile">
+          <p>Seret file video ke sini, atau klik untuk pilih</p>
+          <input type="file" id="videoFile" accept="video/*" hidden>
+        </div>
+        <ul class="file-list" id="videoFileList"></ul>
+        <div class="field-row">
+          <label>Format tujuan
+            <select id="videoTo" class="select-input">
+              <option value="mp4">MP4</option>
+              <option value="webm">WEBM</option>
+              <option value="mov">MOV</option>
+              <option value="mkv">MKV</option>
+              <option value="avi">AVI</option>
+            </select>
+          </label>
+          <label>Resolusi (opsional)
+            <select id="videoResolution" class="select-input">
+              <option value="">Sama seperti asli</option>
+              <option value="360p">360p</option>
+              <option value="720p">720p</option>
+              <option value="1080p">1080p</option>
+            </select>
+          </label>
+        </div>
+        <button class="btn-primary" id="videoSubmit">Konversi &amp; Unduh</button>
+      </div>
+
+      <!-- VIDEO TO AUDIO -->
+      <div class="tool-view" data-view="video-to-audio">
+        <h2>Ambil Audio dari Video</h2>
+        <p class="tool-hint">Keluarkan trek audio dari file video jadi MP3.</p>
+        <div class="dropzone" data-input="v2aFile">
+          <p>Seret file video ke sini, atau klik untuk pilih</p>
+          <input type="file" id="v2aFile" accept="video/*" hidden>
+        </div>
+        <ul class="file-list" id="v2aFileList"></ul>
+        <label>Bitrate (opsional)
+          <select id="v2aBitrate" class="select-input">
+            <option value="">Default</option>
+            <option value="128k">128 kbps</option>
+            <option value="192k">192 kbps</option>
+            <option value="320k">320 kbps</option>
+          </select>
+        </label>
+        <button class="btn-primary" id="v2aSubmit">Ambil Audio &amp; Unduh MP3</button>
+      </div>
+
+      <!-- CSV <-> JSON -->
+      <div class="tool-view" data-view="csv-json">
+        <h2>CSV ⇄ JSON</h2>
+        <p class="tool-hint">Pilih arah konversi sesuai file yang kamu punya.</p>
+        <div class="dropzone" data-input="csvJsonFile">
+          <p>Seret file .csv atau .json ke sini, atau klik untuk pilih</p>
+          <input type="file" id="csvJsonFile" accept=".csv,.json" hidden>
+        </div>
+        <ul class="file-list" id="csvJsonFileList"></ul>
+        <div class="field-row">
+          <label>Arah konversi
+            <select id="csvJsonDirection" class="select-input">
+              <option value="csv-to-json">CSV → JSON</option>
+              <option value="json-to-csv">JSON → CSV</option>
+            </select>
+          </label>
+        </div>
+        <button class="btn-primary" id="csvJsonSubmit">Konversi &amp; Unduh</button>
+      </div>
+
+    </section>
+
+    <p class="status-line" id="statusLine"></p>
+  </main>
+
+  <script src="js/download-progress.js"></script>
+  <script src="js/convert.js"></script>
+  <script src="js/page-transition.js"></script>
+  <script src="js/recent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/toast.js"></script>
+</body>
+</html>
