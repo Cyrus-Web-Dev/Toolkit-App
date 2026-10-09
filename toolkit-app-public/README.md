@@ -76,7 +76,3 @@ npm start
 ## Lisensi
 
 MIT — lihat file [LICENSE](LICENSE).
-
-## Catatan
-
-Ini adalah edisi **community / public**. Fitur unduhan media web tidak disertakan agar repo lebih netral untuk penggunaan produktivitas umum.
